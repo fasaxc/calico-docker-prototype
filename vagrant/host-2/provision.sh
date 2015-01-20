@@ -10,7 +10,6 @@ HOST2=calico-2
 DEMO_ROOT=/opt/demo
 PLUGIN_ROOT=/opt/plugin
 
-hostname $HOST2
 apt-add-repository -y ppa:james-page/docker
 apt-get update
 apt-get install -y docker.io ipset git
