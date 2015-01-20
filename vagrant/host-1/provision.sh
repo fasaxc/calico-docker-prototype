@@ -10,6 +10,8 @@ HOST2=calico-2
 DEMO_ROOT=/opt/demo
 PLUGIN_ROOT=/opt/plugin
 
+echo "$IP2 $HOST2" >> /etc/hosts
+
 apt-add-repository -y ppa:james-page/docker
 apt-get update
 apt-get install -y docker.io ipset git
@@ -50,7 +52,7 @@ docker run -d -v /var/log/bird:/var/log/bird \
            /usr/bin/run_bird bird1.conf
 docker run -d -v /var/log/calico:/var/log/calico \
            --privileged=true \
-           --name="plugin1" \
+           --name="plugin-net" \
            --net=host \
            --restart=always \
            -v $PLUGIN_ROOT:$PLUGIN_ROOT \
@@ -58,7 +60,7 @@ docker run -d -v /var/log/calico:/var/log/calico \
            python /opt/scripts/plugin.py network
 docker run -d -v /var/log/calico:/var/log/calico \
            --privileged=true \
-           --name="plugin2" \
+           --name="plugin-ep" \
            --net=host \
            --restart=always \
            -v $PLUGIN_ROOT:$PLUGIN_ROOT calico:plugin \
@@ -73,7 +75,7 @@ docker run -d -v /var/log/calico:/var/log/calico \
            --config-file=/etc/calico/felix.cfg
 docker run -d -v /var/log/calico:/var/log/calico \
            --privileged=true \
-           --name="aclmgr" \
+           --name="acl-mgr" \
            --net=host \
            --restart=always \
            -t calico:felix calico-acl-manager \
