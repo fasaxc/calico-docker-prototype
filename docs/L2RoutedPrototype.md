@@ -49,12 +49,13 @@ Calico currently requires that some components are run only on a single compute 
 For now, the script requires you to provide the IP address of the local CoreOS server the --host parameter.
 
 All commands need to be run from the calico-docker-prototype directory
-* `cd calico-docker-prototype`
 
 * On core-01
+   * `cd calico-docker-prototype`
    * `sudo ./calico launch --master --host=172.17.8.101 --peer=172.17.8.102`
 
 * On core-02
+   * `cd calico-docker-prototype`
    * `sudo ./calico launch --host=172.17.8.102 --peer=172.17.8.101`
 
 This will start a number of Docker containers. Check they are running
